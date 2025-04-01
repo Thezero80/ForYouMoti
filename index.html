@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Con cariño, para ti</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos para el botón */
+        .open-modal-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .open-modal-btn:hover {
+            background-color: #ff85c1;
+        }
+
+        /* Estilos para la hoja modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #ff69b4;
+        }
+
+        .modal-content p {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .close-modal-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .close-modal-btn:hover {
+            background-color: #ff85c1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="envelope-wrapper">
+            <div class="envelope">
+                <div class="letter">
+                    <div class="text">
+                        <strong>Con cariño, para Luna</strong>
+                        <p>
+                            Eres una niña maravillosa, tus hermosas cualidades son las que te hacen unica y especial
+                            y son el motivo de que cada dia me enamore mas de ti y no me alcanzaria el tiempo ni el
+                            espacio de esta hoja para escribirlas...
+                            <img src="img.jpeg" alt="" style="max-width: 45%; height: auto; display: block; margin: 0 auto;border-radius: 15px;">
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="heart"></div>
+        </div>
+    </div>
+
+    <audio id="background-music" src="allofme.mp3"></audio>
+
+    <!-- Botón para abrir la hoja modal -->
+    <button class="open-modal-btn">Ábreme</button>
+
+    <!-- Hoja modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h2>Unas cuantas de muchas frases</h2>
+            <p>Eres mi sol en los días nublados.</p>
+            <p>Cada momento contigo es un regalo.</p>
+            <p>Tu sonrisa ilumina mi mundo."</p>
+            <p>Eres la razón por la que creo en el amor verdadero.</p>
+            <p>No importa dónde esté, siempre quiero estar contigo.</p>
+            <p>Eres mi lugar favorito en el mundo.</p>
+            <p>Gracias por ser tú, Luna.</p>
+            <button class="close-modal-btn">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.querySelector('.envelope-wrapper');
+        const audio = document.getElementById('background-music');
+        const body = document.body;
+        const modal = document.getElementById('modal');
+        const openModalBtn = document.querySelector('.open-modal-btn');
+        const closeModalBtn = document.querySelector('.close-modal-btn');
+
+        let gradientInterval;
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('flap');
+
+            // Reproducir música
+            if (!audio.paused) {
+                audio.pause();
+                audio.currentTime = 0;
+                clearInterval(gradientInterval);
+                body.style.background = ''; // Detener gradiente
+            } else {
+                audio.play();
+
+                // Iniciar gradiente RGB
+                let hue = 0;
+                gradientInterval = setInterval(() => {
+                    hue = (hue + 1) % 360;
+                    body.style.background = `linear-gradient(90deg, hsl(${hue}, 100%, 70%), hsl(${(hue + 60) % 360}, 100%, 70%))`;
+                }, 50);
+            }
+        });
+
+        // Abrir la hoja modal
+        openModalBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        // Cerrar la hoja modal
+        closeModalBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
